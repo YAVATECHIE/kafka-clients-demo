@@ -4,10 +4,10 @@ Simple Java examples demonstrating Apache Kafka client APIs using Confluent Clou
 
 ## Prerequisites
 
-- Java 17+
-- Maven
-- Confluent Cloud cluster
-- Topic named `orders`
+* Java 17+
+* Maven
+* Confluent Cloud cluster
+* Topic named `orders`
 
 ## Configuration
 
@@ -17,23 +17,48 @@ Download the client configuration from Confluent Cloud and place it in:
 src/main/resources/client.properties
 ```
 
-## Run
+## Build
 
 ```bash
-mvn compile exec:java
+mvn clean package
 ```
 
-or run `ProducerDemo` from your IDE.
+## Run
+
+Run the desired example from your IDE.
 
 ## Included Examples
 
-- Kafka Producer
-    - Asynchronous sends
-    - Callbacks
-    - Producer acknowledgements (`acks=all`)
-    - Idempotent producer
-    - Key-based partitioning
+### ProducerDemo
 
-## Expected Outcome
+Demonstrates:
 
-The producer publishes sample order events and displays the assigned partition and offset for each record.
+* Asynchronous sends
+* Producer callbacks
+* Producer acknowledgements (`acks=all`)
+* Idempotent producer
+* Key-based partitioning
+
+Expected observations:
+
+* Records with the same key are routed to the same partition
+* Producer callbacks provide delivery metadata
+* Assigned partition and offset are displayed for each record
+
+### SimpleConsumer
+
+Demonstrates:
+
+* Topic subscription
+* Poll loop (`poll()`)
+* Consumer groups
+* Partition assignment
+* Offsets
+* Consumer restart behavior
+
+Expected observations:
+
+* Records are consumed from assigned partitions
+* Key, value, partition, and offset information are displayed
+* Restarting with the same consumer group resumes from the stored position
+* Running multiple consumer instances with the same group triggers partition redistribution (rebalance)
